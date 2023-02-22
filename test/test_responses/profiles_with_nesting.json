@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "my_profile": {
+      "record": {
+        "id": 1,
+        "nickname": "eff1c",
+        "admin": true,
+        "post_names": [
+          "test post",
+          "python xml_serializer"
+        ]
+      }
+    }
+  }
+}

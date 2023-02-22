@@ -1,0 +1,22 @@
+<payload>
+    <MyProfile>
+        <record id="1" nickname="eff1c" admin="true">
+            <posts topic="something">
+                <post name="test post" description="It's my test post." />
+                <post name="python xml_serializer" description="It's very useful module!" />
+            </posts>
+        </record>
+    </MyProfile>
+    <MyFriends>
+        <Profiles>
+            <record id="2" nickname="roykoand" admin="true" >
+                <posts/>
+            </record>
+            <record id="3" nickname="test_friend" admin="false" >
+                <posts>
+                    <post name="I like it test" description="I live in this test" />
+                </posts>
+            </record>
+        </Profiles>
+    </MyFriends>
+</payload>

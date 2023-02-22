@@ -1,0 +1,24 @@
+{
+  "payload": {
+    "my_profile": {
+      "record": {
+        "id": 1,
+        "nickname": "eff1c",
+        "admin": true,
+        "posts": {
+          "topic": "something",
+          "post": [
+            {
+              "name": "test post",
+              "description": "It's my test post."
+            },
+            {
+              "name": "python xml_serializer",
+              "description": "It's very useful module!"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
