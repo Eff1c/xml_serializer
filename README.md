@@ -74,7 +74,7 @@ profiles_schema = {
     }
 ```
 
-Get 
+Get etree element (tag)
 
 ```python
 from xml.etree import ElementTree as etree
