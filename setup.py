@@ -9,7 +9,7 @@ setup(
     name='xml_serializer',
     author='Illia Martyniuk',
     author_email="illymartynyk@gmail.com",
-    version="1.0.1",
+    version="1.0.2",
     url='https://github.com/Eff1c/xml_serializer',
     license='MIT',
     description='Module for serialize (convert) xml to Python dict (with Python objects)',
