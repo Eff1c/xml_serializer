@@ -31,15 +31,17 @@ class NestedType(AbstractType):
     def __init__(self, schema, data_handling_function, *args, **kwargs):
         super(NestedType, self).__init__(*args, **kwargs)
 
-        if not schema:
+        self.schema = schema
+        self.data_handling_function = data_handling_function
+
+        self._check_args()
+
+    def _check_args(self):
+        if not self.schema:
             raise ValueError("Incorrect schema!")
 
-        self.schema = schema
-
-        if not callable(data_handling_function):
-            raise TypeError(f"{data_handling_function} is not callable!")
-
-        self.data_handling_function = data_handling_function
+        if not callable(self.data_handling_function):
+            raise TypeError(f"{self.data_handling_function} is not callable!")
 
     def convert_method(self, tag):
         data = serialize_by_inner_schema(self.schema, tag)
