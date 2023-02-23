@@ -37,11 +37,8 @@ class NestedType(AbstractType):
 
         self.data_handling_function = data_handling_function
 
-    def _serialize(self, tag):
-        return serialize_by_inner_schema(self.schema, tag)
-
     def convert_method(self, tag):
-        data = self._serialize(tag)
+        data = serialize_by_inner_schema(self.schema, tag)
         response = self.data_handling_function(data)
 
         return response
