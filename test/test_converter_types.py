@@ -33,7 +33,7 @@ valid_test_data = [
 
 
 @pytest.mark.parametrize('converter_type, payload, expected_response', valid_test_data)
-def test_valid_cases(converter_type, payload, expected_response):
+def test_common_types(converter_type, payload, expected_response):
     converter = converter_type()
 
     assert converter.convert(payload) == expected_response
