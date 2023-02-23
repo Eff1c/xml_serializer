@@ -30,6 +30,10 @@ class NestedType(AbstractType):
     """
     def __init__(self, schema, data_handling_function, *args, **kwargs):
         super(NestedType, self).__init__(*args, **kwargs)
+
+        if not schema:
+            raise ValueError("Incorrect schema!")
+
         self.schema = schema
 
         if not callable(data_handling_function):
