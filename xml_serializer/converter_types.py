@@ -28,9 +28,6 @@ class NestedType(AbstractType):
     """
     Class custom handle nested schema
     """
-    schema = None
-    data_handling_function = None
-
     def __init__(self, schema, data_handling_function=None, *args, **kwargs):
         super(NestedType, self).__init__(*args, **kwargs)
         self.schema = schema
