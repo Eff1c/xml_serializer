@@ -9,6 +9,7 @@ You can see examples of using the module in [serializer_test.py](test/serializer
 We have next xml data (profiles.xml)
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
 <payload>
     <MyProfile>
         <record id="1" nickname="eff1c" admin="true">
