@@ -10,6 +10,9 @@ class AbstractType:
         pass
 
     def convert(self, value):
+        if not isinstance(value, str):
+            raise TypeError("value argument must be a string!")
+
         value = value.strip() or None
 
         if value is None:
