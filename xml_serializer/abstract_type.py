@@ -18,6 +18,6 @@ class AbstractType(ABC):
             if self.nullable:
                 return None
 
-            raise TypeError("Missing required argument!")
+            raise ValueError("Missing required argument!")
 
         return self.convert_method(value)
