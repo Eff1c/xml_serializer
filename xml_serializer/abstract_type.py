@@ -1,9 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
-class AbstractType(ABC):
-    nullable = None
-
+class AbstractType:
     def __init__(self, nullable=True):
         self.nullable = nullable
 
