@@ -1,5 +1,5 @@
 import pytest
-from abstract_type import AbstractType
+from xml_serializer.abstract_type import AbstractType
 from typing import NamedTuple
 
 

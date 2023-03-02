@@ -2,7 +2,7 @@ from typing import NamedTuple
 
 import pytest
 
-from abstract_type import AbstractType
+from xml_serializer.abstract_type import AbstractType
 from xml_serializer.converter_types import String, Integer, Float, Boolean, NestedType
 
 
