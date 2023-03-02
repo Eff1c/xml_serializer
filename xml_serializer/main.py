@@ -1,31 +1,8 @@
 from typing import Union
 from xml.etree.ElementTree import Element as xml_tag
 
+from .schema_items import Tag
 from .abstract_type import AbstractType
-
-
-class BaseField:
-    def __init__(self, field_name: str, name: str = None):
-        self.field_name = field_name
-
-        if not name:
-            name = field_name
-
-        self.name = name
-
-
-class Tag(BaseField):
-    """
-    Describes a tag in the serialization scheme
-    """
-    pass
-
-
-class TagAttr(BaseField):
-    """
-    Describes a tag attribute in the serialization scheme
-    """
-    pass
 
 
 def xml_serialize(schema: dict, tag: xml_tag):
