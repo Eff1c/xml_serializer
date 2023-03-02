@@ -158,7 +158,9 @@ class XMLElement:
         current_schema_item = current_schema_item[0]
         serialized_list = serialize_by_inner_schema(current_schema_item, tag)
 
-        if not response[schema_tag.name]:
-            response[schema_tag.name] = [serialized_list]
-        else:
+        is_exist = response.get(schema_tag.name, False)
+
+        if is_exist:
             response[schema_tag.name].append(serialized_list)
+        else:
+            response[schema_tag.name] = [serialized_list]
