@@ -2,5 +2,6 @@ __pycache__
 venv
 .idea
 .pytest_cache
+.coverage
 *.egg-info
 dist
