@@ -1,9 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
-class AbstractType(ABC):
-    nullable = None
-
+class AbstractType:
     def __init__(self, nullable=True):
         self.nullable = nullable
 
@@ -12,6 +10,9 @@ class AbstractType(ABC):
         pass
 
     def convert(self, value):
+        if not isinstance(value, str):
+            raise TypeError("value argument must be a string!")
+
         value = value.strip() or None
 
         if value is None:
