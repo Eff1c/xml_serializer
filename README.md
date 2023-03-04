@@ -4,8 +4,6 @@ Allows you to convert XML to python dict (with python objects) using a schema.
 
 ## Examples
 
-You can see examples of using the module in [serializer_test.py](test/serializer_test.py)
-
 We have next xml data (profiles.xml)
 
 ```xml

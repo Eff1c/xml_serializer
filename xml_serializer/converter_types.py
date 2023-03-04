@@ -38,10 +38,13 @@ class NestedType(AbstractType):
 
     def _check_args(self):
         if not self.schema:
-            raise ValueError("Incorrect schema!")
+            raise ValueError("Missing required argument - schema!")
+
+        if not self.data_handling_function:
+            raise ValueError("Missing required argument - data_handling_function!")
 
         if not callable(self.data_handling_function):
-            raise TypeError(f"{self.data_handling_function} is not callable!")
+            raise TypeError("data_handling_function must be callable!")
 
     def convert_method(self, tag):
         data = serialize_by_inner_schema(self.schema, tag)
