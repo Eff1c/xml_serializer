@@ -5,7 +5,7 @@ from xml.etree.ElementTree import Element as xml_tag
 
 import pytest
 
-from xml_serializer.main import xml_serialize, Tag, TagAttr
+from xml_serializer import xml_serialize, Tag, TagAttr
 from xml_serializer.converter_types import Integer, String, Boolean, NestedType
 
 profiles_schema = {

@@ -1,34 +1,11 @@
-from typing import Union
+from typing import Union, Optional
 from xml.etree.ElementTree import Element as xml_tag
 
+from .schema_items import Tag
 from .abstract_type import AbstractType
 
 
-class BaseField:
-    def __init__(self, field_name: str, name: str = None):
-        self.field_name = field_name
-
-        if not name:
-            name = field_name
-
-        self.name = name
-
-
-class Tag(BaseField):
-    """
-    Describes a tag in the serialization scheme
-    """
-    pass
-
-
-class TagAttr(BaseField):
-    """
-    Describes a tag attribute in the serialization scheme
-    """
-    pass
-
-
-def xml_serialize(schema: dict, tag: xml_tag):
+def xml_serialize(schema: dict, tag: xml_tag) -> dict:
     """
     Serialize xml by schema
 
@@ -38,7 +15,7 @@ def xml_serialize(schema: dict, tag: xml_tag):
     """
     response = {}
 
-    schema_tag, inner_schema = get_schema_tag_and_inner_schema(schema)
+    schema_tag, inner_schema = _get_schema_tag_and_inner_schema(schema)
 
     serialized_xml = serialize_by_inner_schema(inner_schema, tag)
 
@@ -47,7 +24,7 @@ def xml_serialize(schema: dict, tag: xml_tag):
     return response
 
 
-def serialize_by_inner_schema(schema: dict, tag: xml_tag):
+def serialize_by_inner_schema(schema: dict, tag: xml_tag) -> Optional[dict]:
     """
     Use schema without current tag.
 
@@ -61,7 +38,7 @@ def serialize_by_inner_schema(schema: dict, tag: xml_tag):
     return response
 
 
-def get_schema_tag_and_inner_schema(schema: dict) -> (Tag, Union[list, dict]):
+def _get_schema_tag_and_inner_schema(schema: dict) -> (Tag, Union[list, dict]):
     schema_items = list(schema.items())
 
     if len(schema_items) > 1:
@@ -78,20 +55,20 @@ class XMLElement:
         self.schema = schema
         self.tag = tag
 
-    def serialize(self):
+    def serialize(self) -> Optional[dict]:
         response = {}
 
-        tag_descriptions, tag_attr_descriptions = self.get_field_descriptions()
+        tag_descriptions, tag_attr_descriptions = self._get_field_descriptions()
 
         if tag_attr_descriptions:
-            tag_attrs = self.fill_tag_attrs(
+            tag_attrs = self._fill_tag_attrs(
                 tag_attr_descriptions
             )
             if tag_attrs:
                 response.update(tag_attrs)
 
         if tag_descriptions:
-            tags = self.fill_tags(
+            tags = self._fill_tags(
                 tag_descriptions
             )
             if tags:
@@ -99,7 +76,7 @@ class XMLElement:
 
         return response or None
 
-    def get_field_descriptions(self) -> (dict, dict):
+    def _get_field_descriptions(self) -> (dict, dict):
         tag_descriptions = {}
         tag_attr_descriptions = {}
 
@@ -114,7 +91,7 @@ class XMLElement:
 
         return tag_descriptions, tag_attr_descriptions
 
-    def fill_tag_attrs(self, fields_description):
+    def _fill_tag_attrs(self, fields_description) -> dict:
         response = {}
 
         for key, converter_type in fields_description.items():
@@ -127,8 +104,8 @@ class XMLElement:
 
         return response
 
-    def fill_tags(self, fields_description: dict):
-        children_tags_with_nesting = self.get_children_tags_with_nesting(
+    def _fill_tags(self, fields_description: dict) -> dict:
+        children_tags_with_nesting = self._get_children_tags_with_nesting(
             fields_description
         )
 
@@ -148,7 +125,7 @@ class XMLElement:
                 )
 
             elif isinstance(item_type, list):
-                self.list_serialize(
+                response = self._list_serialize(
                     current_schema_item,
                     children_tag,
                     schema_tag,
@@ -163,8 +140,10 @@ class XMLElement:
 
         return response
 
-    def get_children_tags_with_nesting(self, fields_description: dict):
-        tag_names = {tag.field_name: tag for tag in fields_description}
+    def _get_children_tags_with_nesting(self, fields_description: dict) -> dict:
+        tag_names = {
+            tag.field_name: tag for tag in fields_description
+        }
 
         return {
             tag: tag_names[tag.tag] for tag in self.tag
@@ -172,16 +151,20 @@ class XMLElement:
         }
 
     @staticmethod
-    def list_serialize(
+    def _list_serialize(
         current_schema_item: dict,
         tag: xml_tag,
         schema_tag: Tag,
         response: dict
-    ):
+    ) -> dict:
         current_schema_item = current_schema_item[0]
         serialized_list = serialize_by_inner_schema(current_schema_item, tag)
 
-        if not response[schema_tag.name]:
-            response[schema_tag.name] = [serialized_list]
-        else:
+        is_exist = response.get(schema_tag.name, False)
+
+        if is_exist:
             response[schema_tag.name].append(serialized_list)
+        else:
+            response[schema_tag.name] = [serialized_list]
+
+        return response
