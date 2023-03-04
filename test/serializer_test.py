@@ -1,4 +1,5 @@
 import json
+import os
 from xml.etree import ElementTree as etree
 from xml.etree.ElementTree import Element as xml_tag
 
@@ -60,7 +61,14 @@ profiles_schema_with_nesting = {
 
 
 def get_main_tag(file_name: str, tag_name: str = None) -> xml_tag:
-    tree = etree.parse(f"test_payloads/{file_name}.xml")
+    full_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "test_payloads", f"{file_name}.xml"
+        )
+    )
+
+    tree = etree.parse(full_path)
     root = tree.getroot()
 
     if tag_name is None or root.tag == tag_name:
@@ -71,8 +79,15 @@ def get_main_tag(file_name: str, tag_name: str = None) -> xml_tag:
     return tag
 
 
-def get_response(name: str) -> str:
-    with open(f"test_responses/{name}.json", "r") as f:
+def get_response(file_name: str) -> str:
+    full_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "test_responses", f"{file_name}.json"
+        )
+    )
+
+    with open(full_path, "r") as f:
         file_data = json.load(f)
 
     return file_data

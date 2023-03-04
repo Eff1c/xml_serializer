@@ -2,7 +2,7 @@ from typing import NamedTuple
 
 import pytest
 
-from abstract_type import AbstractType
+from xml_serializer.abstract_type import AbstractType
 from xml_serializer.converter_types import String, Integer, Float, Boolean, NestedType
 
 
@@ -58,7 +58,7 @@ class NestedTypeTestCase(NamedTuple):
 class TestNestedType:
     correct_schema = {"test": "test"}
 
-    def correct_data_handling_function():
+    def correct_data_handling_function(self):
         pass
 
     incorrect_init_test_data = [
