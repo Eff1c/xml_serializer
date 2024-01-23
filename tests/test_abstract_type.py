@@ -6,7 +6,6 @@ from typing import NamedTuple
 class SuccessTestCase(NamedTuple):
     value: str
     abstract_type: AbstractType
-    expected_response: any
 
 
 class FailTestCase(NamedTuple):
